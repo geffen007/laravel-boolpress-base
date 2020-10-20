@@ -12,6 +12,7 @@
         <div class="">
             <p>Titolo: {{$review->title}}</p>
             <p>Testo: {{$review->textReview}}</p>
+            <a href="{{ route('reviews.show', $review->id)}}">visualizza</a>
         </div>
     @endforeach
 

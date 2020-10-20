@@ -60,9 +60,9 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Review $review)
     {
-        //
+            return view('reviews.show', compact('review'));
     }
 
     /**
@@ -94,8 +94,10 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        $id = $review->user_id;
+        return redirect()->route('users.show', $id);
     }
 }
