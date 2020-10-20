@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInfosTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('infos', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->longtext('textReview');
+            // $table->timestamps();
 
-            $table->string('telephon', 25);
-            $table->text('avatar');
-            // $table->timestamps(); lo tolgo e nel model dichiaro false
 
             //facciamo la relazione con la tabella user
             $table->unsignedBigInteger('user_id'); //creiamo la colonna
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); //creiamo la relazione
-
         });
     }
 
@@ -33,6 +33,6 @@ class CreateInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infos');
+        Schema::dropIfExists('reviews');
     }
 }
