@@ -15,7 +15,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all();
+        $reviews = Review::orderBy('id', 'desc')->get(); //o Review::all(); non ordinato
         return view('reviews.index', compact('reviews'));
     }
 
@@ -38,7 +38,20 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $request->validate([
+            'title'=> 'required|max:100|min:5',
+            'textReview'=> 'required|min:5|max:500',
+            'user_id' => 'required|numeric|exists:users,id'  //(exists: nome tabella, nome campo)
+
+        ]);
+        $reviewNew = new Review();
+        $reviewNew->fill($data); //fill riempie automanticamente in base alle fillable
+        $saved = $reviewNew->save();
+        if($saved){
+            return redirect()->route('reviews.index')->with('status_created', 'Hai inserito correttamente la recensione');
+        }
+
     }
 
     /**

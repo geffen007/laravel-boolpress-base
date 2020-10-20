@@ -9,7 +9,7 @@ class Review extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'textReview', 'title', 'user_id',
+         'title', 'textReview', 'user_id',
     ];
 
     public function user(){
